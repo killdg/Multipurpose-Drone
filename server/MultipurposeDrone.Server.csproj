@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyName>Killdg.MultipurposeDrone.Server</AssemblyName>
+        <Version>0.2.24</Version>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="SPTarkov.Common" HintPath="$(SPTBinaries)/SPTarkov.Common.dll" Private="false" />
+        <Reference Include="SPTarkov.DI" HintPath="$(SPTBinaries)/SPTarkov.DI.dll" Private="false" />
+        <Reference Include="SPTarkov.Server.Core" HintPath="$(SPTBinaries)/SPTarkov.Server.Core.dll" Private="false" />
+        <Reference Include="SemanticVersioning" HintPath="$(SPTBinaries)/SemanticVersioning.dll" Private="false" />
+        <Compile Include="../src/DroneItems.cs" Link="DroneItems.cs" />
+    </ItemGroup>
+</Project>

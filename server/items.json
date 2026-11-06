@@ -1,0 +1,132 @@
+[
+    {
+        "itemTplToClone": "59fb023c86f7746d0d4b423c",
+        "parentId": "5795f317245977243854e041",
+        "newId": "672f41440000000000000001",
+        "newItemName": "MS-AR4144 Drone Kit",
+        "overrideProperties": {
+            "DiscardLimit": -1,
+            "ExaminedByDefault": true,
+            "CanSellOnRagfair": false,
+            "Width": 2,
+            "Height": 2,
+            "Weight": 0.15,
+            "Grids": [
+                {
+                    "_id": "672f41440000000000000005",
+                    "_name": "main",
+                    "_parent": "672f41440000000000000001",
+                    "_props": {
+                        "cellsH": 4,
+                        "cellsV": 1,
+                        "filters": [
+                            {
+                                "Filter": [
+                                    "672f41440000000000000002",
+                                    "672f41440000000000000003",
+                                    "672f41440000000000000004"
+                                ],
+                                "ExcludedFilter": []
+                            }
+                        ],
+                        "maxCount": 0,
+                        "maxWeight": 0,
+                        "minCount": 0,
+                        "isSortingTable": false
+                    },
+                    "_proto": "55d329c24bdc2d892f8b4567"
+                }
+            ],
+            "Prefab": {
+                "path": "assets/content/items/quest/item_quest_parcel/item_quest_parcel.bundle",
+                "rcid": ""
+            },
+            "CanPutIntoDuringTheRaid": true
+        },
+        "handbookParentId": "5b5f6fa186f77409407a7eb7",
+        "handbookPriceRoubles": 65000,
+        "fleaPriceRoubles": 65000,
+        "addToWeaponShelf": false,
+        "locales": {
+            "en": {
+                "name": "MS-AR4144 Drone Kit",
+                "shortName": "DRONE KIT",
+                "description": "Mechanic built this compact camera drone after a request to reach people behind cover safely. Its success led to more kits assembled from scavenged supplies. Unpack to receive one MS-AR4144 Drone, MS Glasses and MS-Remote. Drop the drone in raid, equip the glasses and bind the remote in a special slot. The drone has a ten-minute battery and an impact payload; Collision with something alive may change that status."
+            }
+        }
+    },
+    {
+        "itemTplToClone": "5c05308086f7746b2101e90b",
+        "parentId": "57864a66245977548f04a81f",
+        "newId": "672f41440000000000000002",
+        "newItemName": "MS-AR4144 Drone",
+        "overrideProperties": {
+            "DiscardLimit": -1,
+            "ExaminedByDefault": true,
+            "CanSellOnRagfair": false,
+            "Width": 1,
+            "Height": 1,
+            "Weight": 0.35,
+            "Unlootable": false,
+            "IsUnremovable": false,
+            "IsUndiscardable": false,
+            "DiscardingBlock": false,
+            "IsSpecialSlotOnly": false
+        },
+        "handbookParentId": "5b47574386f77428ca22b345",
+        "handbookPriceRoubles": 40000,
+        "fleaPriceRoubles": 40000,
+        "addToWeaponShelf": false,
+        "locales": {
+            "en": {
+                "name": "MS-AR4144 Drone",
+                "shortName": "MS-AR4144",
+                "description": "Compact enclosed-rotor drone with an impact-grenade payload. Drop it on the ground to deploy, then use MS-Remote. Collision with something alive may change that status."
+            }
+        }
+    },
+    {
+        "itemTplToClone": "5aa2b9aee5b5b00015693121",
+        "parentId": "5448e5724bdc2ddf718b4568",
+        "newId": "672f41440000000000000003",
+        "newItemName": "MS Glasses",
+        "overrideProperties": {
+            "DiscardLimit": -1,
+            "ExaminedByDefault": true,
+            "CanSellOnRagfair": false
+        },
+        "handbookParentId": "5b47574386f77428ca22b331",
+        "handbookPriceRoubles": 15000,
+        "fleaPriceRoubles": 15000,
+        "addToWeaponShelf": false,
+        "locales": {
+            "en": {
+                "name": "MS Glasses",
+                "shortName": "MS Glasses",
+                "description": "AR glasses displaying the MS-AR4144 camera feed. Removing them disconnects the feed."
+            }
+        }
+    },
+    {
+        "itemTplToClone": "61605e13ffa6e502ac5e7eef",
+        "parentId": "61605ddea09d851a0a0c1bbc",
+        "newId": "672f41440000000000000004",
+        "newItemName": "MS-Remote",
+        "overrideProperties": {
+            "DiscardLimit": -1,
+            "ExaminedByDefault": true,
+            "CanSellOnRagfair": false
+        },
+        "handbookParentId": "5b47574386f77428ca22b345",
+        "handbookPriceRoubles": 10000,
+        "fleaPriceRoubles": 10000,
+        "addToWeaponShelf": false,
+        "locales": {
+            "en": {
+                "name": "MS-Remote",
+                "shortName": "MS-Remote",
+                "description": "Special-slot remote for the MS-AR4144. Bind it to a quick slot to connect or disconnect."
+            }
+        }
+    }
+]

@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <AssemblyName>Killdg.MultipurposeDrone</AssemblyName>
+    <Version>0.2.24</Version>
+    <Authors>killdg</Authors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BepInEx" HintPath="$(SPTPath)/BepInEx/core/BepInEx.dll" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(SPTPath)/BepInEx/core/0Harmony.dll" Private="false" />
+    <Reference Include="Assembly-CSharp" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/Assembly-CSharp.dll" Private="false" />
+    <Reference Include="Comfort" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/Comfort.dll" Private="false" />
+    <Reference Include="UnityEngine" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/UnityEngine.dll" Private="false" />
+    <Reference Include="UnityEngine.CoreModule" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="UnityEngine.IMGUIModule" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/UnityEngine.IMGUIModule.dll" Private="false" />
+    <Reference Include="UnityEngine.TextRenderingModule" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/UnityEngine.TextRenderingModule.dll" Private="false" />
+    <Reference Include="UnityEngine.InputLegacyModule" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/UnityEngine.InputLegacyModule.dll" Private="false" />
+    <Reference Include="UnityEngine.PhysicsModule" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/UnityEngine.PhysicsModule.dll" Private="false" />
+    <Reference Include="ItemComponent.Types" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/ItemComponent.Types.dll" Private="false" />
+    <Reference Include="Sirenix.Serialization" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/Sirenix.Serialization.dll" Private="false" />
+      <Reference Include="UnityEngine.AudioModule" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/UnityEngine.AudioModule.dll" Private="false" />
+    <Reference Include="UnityEngine.ImageConversionModule" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/UnityEngine.ImageConversionModule.dll" Private="false" />
+    <Reference Include="Comfort.Unity" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/Comfort.Unity.dll" Private="false" />
+      <Reference Include="UnityEngine.AIModule" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/UnityEngine.AIModule.dll" Private="false" />
+    <Reference Include="Unity.Postprocessing.Runtime" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/Unity.Postprocessing.Runtime.dll" Private="false" />
+    <Reference Include="UnityEngine.ScreenCaptureModule" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/UnityEngine.ScreenCaptureModule.dll" Private="false" />
+  </ItemGroup>
+</Project>

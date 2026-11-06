@@ -51,11 +51,13 @@ Unity's ground-baked camera occlusion is temporarily disabled for the drone view
 
 ## Settings and integration
 
+In **F1 → Advanced settings**, set **Drone kit price in roubles** (1,000–500,000, default 65,000) or **Battery duration in minutes** (1–30, default 10). Battery duration applies to the next deployment. The server reads the price from this install's BepInEx configuration at startup. Restart SPT after changing it to refresh Mechanic's offer. Fisheye, flight speed, the optional flight range limit and auto tracking also appear under Advanced settings.
+
 ### Target tracking with MS Glasses
 
 Put the drone reticle over a tracked target and press **M** to mark it. Marking another target replaces the previous mark. Disconnect and keep the paired MS Glasses on to see the mark in your PMC view while the hovering drone can still see the target, even if a wall blocks your PMC's view.
 
-Enable **Auto target tracking** under **Tracking** in F1 to relay all targets the hovering drone can see. It defaults to off. The overlay requires an active drone within radio range. You can rebind **Mark drone target** under **Shortcuts**.
+Enable **Auto target tracking** under **Tracking** in F1 Advanced settings to relay all targets the hovering drone can see. It defaults to off. The overlay requires an active drone within radio range. You can rebind **Mark drone target** under **Shortcuts**.
 
 Settings are in BepInEx/config/com.killdg.multipurposedrone.cfg. Optional Configuration Manager is not bundled. Defaults: enabled, MS Glasses viewing mode, 6 m/s, 450 m radio cutoff; the optional flight range limit is disabled by default, F9 test deployment, F10 disconnect.
 

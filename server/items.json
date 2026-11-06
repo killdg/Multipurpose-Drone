@@ -51,7 +51,7 @@
             "en": {
                 "name": "MS-AR4144 Drone Kit",
                 "shortName": "DRONE KIT",
-                "description": "Mechanic built this compact camera drone after a request to reach people behind cover safely. Its success led to more kits assembled from scavenged supplies. Unpack to receive one MS-AR4144 Drone, MS Glasses and MS-Remote. Drop the drone in raid, equip the glasses and bind the remote in a special slot. The drone has a ten-minute battery and an impact payload; Collision with something alive may change that status."
+                "description": "Mechanic built this compact camera drone after a request to reach people behind cover safely. Its success led to more kits assembled from scavenged supplies. Unpack to receive one MS-AR4144 Drone, MS Glasses and MS-Remote. Drop the drone in raid, equip the glasses and bind the remote in a special slot. The drone has a configurable flight battery and an impact payload; Collision with something alive may change that status."
             }
         }
     },

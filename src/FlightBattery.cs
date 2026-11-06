@@ -6,8 +6,9 @@ namespace Killdg.MultipurposeDrone
     {
         public bool Launched { get; private set; }
         public double ExpiresAt { get; private set; }
+        public double Duration { get; private set; } = 600;
 
-        public void Launch(double now)
+        public void Launch(double now, double duration = 600)
         {
             if (Launched)
             {
@@ -15,12 +16,13 @@ namespace Killdg.MultipurposeDrone
             }
 
             Launched = true;
-            ExpiresAt = now + 600;
+            Duration = duration;
+            ExpiresAt = now + duration;
         }
 
         public double Remaining(double now)
         {
-            return Launched ? Math.Max(0, ExpiresAt - now) : 600;
+            return Launched ? Math.Max(0, ExpiresAt - now) : Duration;
         }
     }
 }

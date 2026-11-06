@@ -46,7 +46,7 @@ namespace Killdg.MultipurposeDrone
 
 
 
-    [BepInPlugin("com.killdg.multipurposedrone", "Multipurpose Drone", "0.2.26")]
+    [BepInPlugin("com.killdg.multipurposedrone", "Multipurpose Drone", "0.2.27")]
 
     public sealed class Plugin : BaseUnityPlugin
 
@@ -130,6 +130,13 @@ namespace Killdg.MultipurposeDrone
         private ConfigEntry<KeyboardShortcut> nightVisionShortcut = null!;
         private ConfigEntry<KeyboardShortcut> markTargetShortcut = null!;
         private ConfigEntry<bool> autoTrackTargets = null!;
+        private ConfigEntry<int> batteryMinutes = null!;
+
+        // ConfigurationManager recognizes this optional metadata by name.
+        private sealed class ConfigurationManagerAttributes
+        {
+            public bool? IsAdvanced = true;
+        }
 
         private Coroutine? zoomCoroutine;
 
@@ -241,7 +248,16 @@ namespace Killdg.MultipurposeDrone
 
             DroneKitPairs.RegistryPath = System.IO.Path.ChangeExtension(Config.ConfigFilePath, "kit-pairs.txt");
 
-            prototypeEnabled = Config.Bind("General", "Enable prototype", true, "Solo drone test; one ten-minute battery per raid.");
+            prototypeEnabled = Config.Bind("General", "Enable prototype", true, "Enable Multipurpose Drone.");
+
+            Config.Bind(DronePrice.Section, DronePrice.Key, DronePrice.Default,
+                new ConfigDescription("Mechanic's kit price in roubles. Restart SPT.Server and reopen the trader to apply.",
+                    new AcceptableValueRange<int>(DronePrice.Minimum, DronePrice.Maximum),
+                    new ConfigurationManagerAttributes()));
+
+            batteryMinutes = Config.Bind("Flight", "Battery duration in minutes", 10,
+                new ConfigDescription("Applies to the next drone you deploy.",
+                    new AcceptableValueRange<int>(1, 30), new ConfigurationManagerAttributes()));
 
             droneSoundVolume = Config.Bind("Audio", "Drone sound effects volume", 25,
                 new ConfigDescription(
@@ -254,7 +270,8 @@ namespace Killdg.MultipurposeDrone
 
             fisheye = Config.Bind("Camera", "Fisheye", false,
 
-                "Optional barrel distortion on the drone feed. Off uses the native lens and colors.");
+                new ConfigDescription("Optional barrel distortion on the drone feed. Off uses the native lens and colors.",
+                    null, new ConfigurationManagerAttributes()));
 
             viewing = Config.Bind("General", "Viewing equipment", DisplayMode.Sunglasses,
 
@@ -266,19 +283,18 @@ namespace Killdg.MultipurposeDrone
 
                 new ConfigDescription("WASD flight; Q down, E up.",
 
-                    new AcceptableValueRange<float>(1, 12)));
+                    new AcceptableValueRange<float>(1, 12), new ConfigurationManagerAttributes()));
 
             maximumRange = Config.Bind("Flight", "Maximum range metres", 300f,
 
                 new ConfigDescription("Distance from the body. Distant native scene rendering still needs testing.",
 
-                    new AcceptableValueRange<float>(50, 500)));
+                    new AcceptableValueRange<float>(50, 500), new ConfigurationManagerAttributes()));
 
             limitRadioRange = Config.Bind("Flight", "Limit radio range", false,
 
-                "Optional distance limit from the body. Off permits movement throughout the loaded map; "
-
-                + "native map boundaries and baked visibility still apply.");
+                new ConfigDescription("Optional distance limit from the body. Off permits movement throughout the loaded map. "
+                    + "Native map boundaries and baked visibility still apply.", null, new ConfigurationManagerAttributes()));
 
             activation = Config.Bind("Shortcuts", "Fallback controller key", new KeyboardShortcut(KeyCode.F9),
 
@@ -291,7 +307,8 @@ namespace Killdg.MultipurposeDrone
                 "Mark the tracked target under the drone reticle for your MS Glasses.");
 
             autoTrackTargets = Config.Bind("Tracking", "Auto target tracking", false,
-                "Show all targets visible to the hovering drone in your PMC view while wearing MS Glasses.");
+                new ConfigDescription("Show all targets visible to the hovering drone in your PMC view while wearing MS Glasses.",
+                    null, new ConfigurationManagerAttributes()));
 
             disconnect = Config.Bind("Shortcuts", "Emergency disconnect", new KeyboardShortcut(KeyCode.F10),
 
@@ -791,7 +808,7 @@ namespace Killdg.MultipurposeDrone
 
                 ResetFlight();
 
-                Logger.LogInfo("F9 test reset: fresh aircraft, 100 HP and ten-minute battery; inventory unchanged.");
+                Logger.LogInfo("F9 test reset: fresh aircraft; inventory unchanged.");
 
             }
 
@@ -1066,7 +1083,7 @@ namespace Killdg.MultipurposeDrone
             droneView.rotation = Quaternion.Euler(pitch, yaw, 0);
 
             tracking.Clear();
-            battery.Launch(Time.time);
+            battery.Launch(Time.time, batteryMinutes.Value * 60);
 
             combat = new DroneCombat(drone.transform, physicalMask);
 
@@ -2425,7 +2442,7 @@ namespace Killdg.MultipurposeDrone
 
             hud?.Draw(connected,
 
-                drone != null, battery.Remaining(Time.time), yaw, pitch, flightSpeed,
+                drone != null, battery.Remaining(Time.time), battery.Duration, yaw, pitch, flightSpeed,
 
                 groundHeight, drone != null ? Vector3.Distance(drone.transform.position, player.Position) : 0,
 

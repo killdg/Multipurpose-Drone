@@ -15,10 +15,11 @@ namespace Killdg.MultipurposeDrone
         private GUIStyle? smallLabel;
         private float zoomOpenedAt;
         private bool zoomWasOpen;
+        private double batteryDuration = 600;
         private readonly DroneInterference interference = new();
         private static readonly Color Ink = new Color(0.8f, 0.96f, 0.9f, 0.9f);
 
-        internal void Draw(bool connected, bool deployed, double remaining,
+        internal void Draw(bool connected, bool deployed, double remaining, double duration,
             float heading, float pitch, float speed, float height, float range, string status, float health, bool boost, int zoomMagnification, Texture? zoom, bool targetSighted)
         {
             if (Event.current.type != EventType.Repaint)
@@ -26,6 +27,7 @@ namespace Killdg.MultipurposeDrone
                 return;
             }
 
+            batteryDuration = duration;
             Matrix4x4 previousMatrix = GUI.matrix;
             Color previousColor = GUI.color;
             int previousDepth = GUI.depth;
@@ -97,7 +99,7 @@ namespace Killdg.MultipurposeDrone
                 Fill(new Rect(left + 13 + index * 11, top + 27 - barHeight, 7, barHeight), color);
             }
             Text(new Rect(right - 230, top + 2, 220, 30),
-                "BAT " + Math.Ceiling(remaining / 6).ToString("0") + "%", true);
+                "BAT " + Math.Ceiling(remaining / batteryDuration * 100).ToString("0") + "%", true);
             float normalizedHeading = (heading % 360 + 360) % 360;
             Text(new Rect(830, top + 2, 260, 30), "HDG " + normalizedHeading.ToString("000") + "°");
 
@@ -154,8 +156,8 @@ namespace Killdg.MultipurposeDrone
             Text(new Rect(box.x + 17, box.y + 9, 265, 28),
                 connected ? (boost ? "DRONE  /  FAST" : "DRONE  /  NORMAL") : "DRONE  /  BODY VIEW");
             Text(new Rect(box.x + 290, box.y + 9, 120, 28),
-                deployed ? TimeSpan.FromSeconds(remaining).ToString(@"mm\:ss") : "10:00", true);
-            int live = deployed ? (int)Math.Ceiling(remaining / 600 * 24) : 24;
+                TimeSpan.FromSeconds(deployed ? remaining : batteryDuration).ToString(@"mm\:ss"), true);
+            int live = deployed ? (int)Math.Ceiling(remaining / batteryDuration * 24) : 24;
             for (int index = 0; index < 24; index++)
             {
                 Color color = index < live ? new Color(0.69f, 0.67f, 0.53f) : new Color(0.18f, 0.18f, 0.15f);

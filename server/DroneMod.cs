@@ -19,7 +19,7 @@ namespace Killdg.MultipurposeDrone.Server
         public string Name { get; init; } = "Multipurpose Drone";
         public string Author { get; init; } = "killdg";
         public List<string>? Contributors { get; init; }
-        public SemanticVersioning.Version Version { get; init; } = new("0.2.26");
+        public SemanticVersioning.Version Version { get; init; } = new("0.2.27");
         public SemanticVersioning.Range SptVersion { get; init; } = new("~4.1.6");
         public List<string>? Incompatibilities { get; init; }
         public Dictionary<string, SemanticVersioning.Range>? ModDependencies { get; init; }
@@ -59,6 +59,8 @@ namespace Killdg.MultipurposeDrone.Server
             // preserve these IDs, so unpacking works locally in raid as well as stash.
             var offer = json.DeserializeFromFile<TraderAssort>(
                 Path.Combine(directory, "assort.json"))!;
+            int kitPrice = ReadKitPrice(directory);
+            offer.BarterScheme.Values.Single().Single().Single().Count = kitPrice;
             assort.Items.AddRange(offer.Items);
             foreach (var entry in offer.BarterScheme)
             {
@@ -68,8 +70,51 @@ namespace Killdg.MultipurposeDrone.Server
             {
                 assort.LoyalLevelItems[entry.Key] = entry.Value;
             }
-            logger.Info("Multipurpose Drone: Mechanic LL1 kit, 65000 RUB, 50 per reset. No custom network routes.");
+            logger.Info($"Multipurpose Drone: Mechanic LL1 kit, {kitPrice} RUB, 50 per reset. No custom network routes.");
             return Task.CompletedTask;
+        }
+
+        private int ReadKitPrice(string modDirectory)
+        {
+            // Both plugins share one local install. Read the trader price at
+            // startup, before SPT serves or caches Mechanic's assortment.
+            string configPath = Path.GetFullPath(Path.Combine(modDirectory, "..", "..", "..", "..",
+                "BepInEx", "config", "com.killdg.multipurposedrone.cfg"));
+            try
+            {
+                if (!File.Exists(configPath))
+                {
+                    return DronePrice.Default;
+                }
+
+                bool inTraderSection = false;
+                foreach (string line in File.ReadLines(configPath))
+                {
+                    string setting = line.Trim();
+                    if (setting.StartsWith("[", StringComparison.Ordinal))
+                    {
+                        inTraderSection = setting == $"[{DronePrice.Section}]";
+                        continue;
+                    }
+
+                    int separator = setting.IndexOf('=');
+                    if (inTraderSection && separator > 0 && setting[..separator].Trim() == DronePrice.Key
+                        && int.TryParse(setting[(separator + 1)..].Trim(), out int price))
+                    {
+                        return Math.Clamp(price, DronePrice.Minimum, DronePrice.Maximum);
+                    }
+                }
+            }
+            catch (IOException)
+            {
+                logger.Warning("Multipurpose Drone: could not read the local trader price. Using the default.");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                logger.Warning("Multipurpose Drone: trader price file is inaccessible. Using the default.");
+            }
+
+            return DronePrice.Default;
         }
     }
 }

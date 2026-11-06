@@ -71,9 +71,9 @@ foreach ($relativePath in $sourceManifest)
 $binary = Join-Path $pluginDirectory 'Killdg.MultipurposeDrone.dll'
 $sourceCommit = git -C $PSScriptRoot rev-parse HEAD
 $sourceChanges = git -C $PSScriptRoot status --porcelain
-$sourceTag = git -C $PSScriptRoot tag --points-at HEAD --list 'v0.2.26'
+$sourceTag = git -C $PSScriptRoot tag --points-at HEAD --list 'v0.2.27'
 $provenance = @{
-    Version = '0.2.26'
+    Version = '0.2.27'
     Author = 'killdg with ChatGPT assistance'
     SourceCommit = $sourceCommit
     SourceTag = $sourceTag
@@ -90,9 +90,9 @@ $provenance = @{
 }
 $provenance | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $artifacts 'Provenance.json') -Encoding utf8
 
-Compress-Archive -Path (Join-Path $installer '*') -DestinationPath (Join-Path $artifacts 'Multipurpose-Drone-0.2.26-Beta.zip') -Force
-Compress-Archive -Path (Join-Path $sourceDirectory '*') -DestinationPath (Join-Path $artifacts 'Multipurpose-Drone-0.2.26-Source.zip') -Force
+Compress-Archive -Path (Join-Path $installer '*') -DestinationPath (Join-Path $artifacts 'Multipurpose-Drone-0.2.27-Beta.zip') -Force
+Compress-Archive -Path (Join-Path $sourceDirectory '*') -DestinationPath (Join-Path $artifacts 'Multipurpose-Drone-0.2.27-Source.zip') -Force
 Get-ChildItem -LiteralPath $artifacts -File |
-    Where-Object { $_.Name -in @('Multipurpose-Drone-0.2.26-Beta.zip', 'Multipurpose-Drone-0.2.26-Source.zip', 'Provenance.json') } |
+    Where-Object { $_.Name -in @('Multipurpose-Drone-0.2.27-Beta.zip', 'Multipurpose-Drone-0.2.27-Source.zip', 'Provenance.json') } |
     ForEach-Object { '{0}  {1}' -f (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash, $_.Name } |
     Set-Content -LiteralPath (Join-Path $artifacts 'SHA256SUMS.txt') -Encoding utf8

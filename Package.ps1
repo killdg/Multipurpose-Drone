@@ -31,9 +31,12 @@ if ($LASTEXITCODE -ne 0)
 }
 
 $artifacts = Join-Path $PSScriptRoot 'artifacts'
-$installer = Join-Path $artifacts 'installer'
+# Start each build with an empty staging area so obsolete plugins cannot
+# carry over into an update archive.
+$staging = Join-Path $artifacts ('staging-' + [Guid]::NewGuid().ToString('N'))
+$installer = Join-Path $staging 'installer'
 $pluginDirectory = Join-Path $installer 'BepInEx/plugins/MultipurposeDrone'
-$sourceDirectory = Join-Path $artifacts 'multipurpose-drone-source-0.2.24'
+$sourceDirectory = Join-Path $staging 'source'
 New-Item -ItemType Directory -Force -Path $pluginDirectory, $sourceDirectory | Out-Null
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'src/bin/Release/netstandard2.1/Killdg.MultipurposeDrone.dll') -Destination $pluginDirectory
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'README.md') -Destination $installer
@@ -66,10 +69,15 @@ foreach ($relativePath in $sourceManifest)
 }
 
 $binary = Join-Path $pluginDirectory 'Killdg.MultipurposeDrone.dll'
+$sourceCommit = git -C $PSScriptRoot rev-parse HEAD
+$sourceChanges = git -C $PSScriptRoot status --porcelain
+$sourceTag = git -C $PSScriptRoot tag --points-at HEAD --list 'v0.2.26'
 $provenance = @{
-    Version = '0.2.24'
+    Version = '0.2.26'
     Author = 'killdg with ChatGPT assistance'
-    Publication = 'Local prototype; not a tagged public release'
+    SourceCommit = $sourceCommit
+    SourceTag = $sourceTag
+    SourceHasLocalChanges = [bool]$sourceChanges
     Verification = 'Build: zero warnings/errors; 65 battery/health/signal/native API and compiled regression checks plus native server JSON/offer checks; new behavior needs live validation'
     BinarySha256 = (Get-FileHash -LiteralPath $binary -Algorithm SHA256).Hash
     SourceSha256 = $sourceHashes
@@ -82,9 +90,9 @@ $provenance = @{
 }
 $provenance | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $artifacts 'Provenance.json') -Encoding utf8
 
-Compress-Archive -Path (Join-Path $installer '*') -DestinationPath (Join-Path $artifacts 'Multipurpose-Drone-0.2.24-Beta.zip') -Force
-Compress-Archive -Path (Join-Path $sourceDirectory '*') -DestinationPath (Join-Path $artifacts 'Multipurpose-Drone-0.2.24-Source.zip') -Force
+Compress-Archive -Path (Join-Path $installer '*') -DestinationPath (Join-Path $artifacts 'Multipurpose-Drone-0.2.26-Beta.zip') -Force
+Compress-Archive -Path (Join-Path $sourceDirectory '*') -DestinationPath (Join-Path $artifacts 'Multipurpose-Drone-0.2.26-Source.zip') -Force
 Get-ChildItem -LiteralPath $artifacts -File |
-    Where-Object { $_.Name -ne 'SHA256SUMS.txt' } |
+    Where-Object { $_.Name -in @('Multipurpose-Drone-0.2.26-Beta.zip', 'Multipurpose-Drone-0.2.26-Source.zip', 'Provenance.json') } |
     ForEach-Object { '{0}  {1}' -f (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash, $_.Name } |
     Set-Content -LiteralPath (Join-Path $artifacts 'SHA256SUMS.txt') -Encoding utf8

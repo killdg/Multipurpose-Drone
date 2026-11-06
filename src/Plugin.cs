@@ -46,7 +46,7 @@ namespace Killdg.MultipurposeDrone
 
 
 
-    [BepInPlugin("com.killdg.multipurposedrone", "Multipurpose Drone", "0.2.24")]
+    [BepInPlugin("com.killdg.multipurposedrone", "Multipurpose Drone", "0.2.26")]
 
     public sealed class Plugin : BaseUnityPlugin
 
@@ -128,6 +128,8 @@ namespace Killdg.MultipurposeDrone
         private enum VisionMode { Normal, NightVision, Thermal }
         private VisionMode visionMode;
         private ConfigEntry<KeyboardShortcut> nightVisionShortcut = null!;
+        private ConfigEntry<KeyboardShortcut> markTargetShortcut = null!;
+        private ConfigEntry<bool> autoTrackTargets = null!;
 
         private Coroutine? zoomCoroutine;
 
@@ -284,6 +286,12 @@ namespace Killdg.MultipurposeDrone
 
             nightVisionShortcut = Config.Bind("Shortcuts", "Drone night vision", new KeyboardShortcut(KeyCode.F6),
                 "Toggle the drone's native night-vision feed while piloting.");
+
+            markTargetShortcut = Config.Bind("Shortcuts", "Mark drone target", new KeyboardShortcut(KeyCode.M),
+                "Mark the tracked target under the drone reticle for your MS Glasses.");
+
+            autoTrackTargets = Config.Bind("Tracking", "Auto target tracking", false,
+                "Show all targets visible to the hovering drone in your PMC view while wearing MS Glasses.");
 
             disconnect = Config.Bind("Shortcuts", "Emergency disconnect", new KeyboardShortcut(KeyCode.F10),
 
@@ -855,7 +863,7 @@ namespace Killdg.MultipurposeDrone
 
 
 
-            if (testAircraft || viewing.Value == DisplayMode.Sunglasses)
+            if (requestedController != null || testAircraft || viewing.Value == DisplayMode.Sunglasses)
 
             {
 
@@ -863,6 +871,7 @@ namespace Killdg.MultipurposeDrone
 
                 {
 
+                    waitForRaisedVisor = true;
                     Disconnect("Disconnected; drone hovering.");
 
                 }
@@ -1056,6 +1065,7 @@ namespace Killdg.MultipurposeDrone
 
             droneView.rotation = Quaternion.Euler(pitch, yaw, 0);
 
+            tracking.Clear();
             battery.Launch(Time.time);
 
             combat = new DroneCombat(drone.transform, physicalMask);
@@ -1639,7 +1649,13 @@ namespace Killdg.MultipurposeDrone
 
                 {
 
-                    tracking.Sample(world, CameraManager.Instance.Camera, drone.transform, physicalMask);
+                    Camera camera = CameraManager.Instance.Camera;
+                    bool markPressed = cameraView?.IsNightVisionActive != true && markTargetShortcut.Value.IsDown();
+                    tracking.Sample(world, camera, drone.transform, physicalMask, refresh: markPressed);
+                    if (markPressed)
+                    {
+                        status = tracking.MarkTarget(camera) ? "Target marked." : "No tracked target under reticle.";
+                    }
 
                 }
 
@@ -1651,8 +1667,33 @@ namespace Killdg.MultipurposeDrone
 
                 cameraView?.Release();
 
+                if (!connected && world != null && drone != null && droneView != null && CanShowRelayedTargets())
+                {
+                    tracking.SampleRelay(world, droneView, drone.transform, physicalMask, autoTrackTargets.Value);
+                }
+
             }
 
+        }
+
+        private bool CanShowRelayedTargets()
+        {
+            if (player == null || droneView == null || drone == null || !raidActive
+                || !prototypeEnabled.Value || !battery.Launched || health.Destroyed
+                || IsConfigurationOpen || player.IsInventoryOpened)
+            {
+                return false;
+            }
+
+            Item? eyewear = player.Equipment.GetSlot(EquipmentSlot.Eyewear).ContainedItem;
+            if (eyewear == null || eyewear.TemplateId != DroneItems.Glasses || !HasEyewear())
+            {
+                return false;
+            }
+
+            float distance = Vector3.Distance(droneView.position, player.Position);
+            return distance < DroneSignal.MaximumConnectionDistance
+                && (!radioLost || distance <= DroneSignal.DropRiskDistance);
         }
 
 
@@ -2009,6 +2050,12 @@ namespace Killdg.MultipurposeDrone
 
             }
 
+        }
+
+        internal static bool TryDisconnectWithRemote(ECommand command)
+        {
+            return Instance is { connected: true, player: { } operatorPlayer }
+                && HandleController(operatorPlayer, command);
         }
 
 
@@ -2371,6 +2418,11 @@ namespace Killdg.MultipurposeDrone
 
             }
 
+            if (!connected && CameraManager.Exist && CanShowRelayedTargets())
+            {
+                tracking.Draw(CameraManager.Instance.Camera, relay: true, autoTrack: autoTrackTargets.Value);
+            }
+
             hud?.Draw(connected,
 
                 drone != null, battery.Remaining(Time.time), yaw, pitch, flightSpeed,
@@ -2540,12 +2592,19 @@ namespace Killdg.MultipurposeDrone
 
             // modes before the hands and movement hooks block body controls.
 
-            foreach (ECommand command in commandsList)
-
+            for (int index = 0; index < commandsList.Count;)
             {
-
+                ECommand command = commandsList[index];
+                // The pilot's hands and movement translators can block quick
+                // slots before the player owner sees them. Consume the bound
+                // remote here so it can also disconnect an active feed.
+                if (Plugin.TryDisconnectWithRemote(command))
+                {
+                    commandsList.RemoveAt(index);
+                    continue;
+                }
                 Plugin.CaptureFlightCommand(command);
-
+                index++;
             }
 
         }

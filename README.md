@@ -19,7 +19,7 @@ Mechanic loyalty level 1 sells the MS-AR4144 Drone Kit for 65,000 roubles, with 
 3. Equip the glasses. Place the remote in a special slot and bind it to a native quick-slot key.
 4. Drop the drone on clear ground within four metres. Leave room above it for takeoff.
 5. Press the remote key to deploy/connect. WASD and mouse steer; Q descends, E climbs. Your native sprint input requests 3x flight speed.
-6. F10 or removing the glasses disconnects the feed. The drone remains deployed and its battery continues draining.
+6. Press the same quick-slot key again to return to your PMC, or press F10 or remove the glasses to disconnect. The drone hovers and its battery continues draining. Press the bound remote key to reconnect.
 
 Unpack uses the main stash outside raids, or the visible backpack, rig and pockets grids in raid. Secure containers and nested cases are excluded. All contents are checked for available space first. An interrupted transfer retains untransferred contents in the box; no replacement items are fabricated. The empty box is removed after its contents move.
 
@@ -50,6 +50,12 @@ Camera position refreshes before native dynamic-culling and adaptive-content job
 Unity's ground-baked camera occlusion is temporarily disabled for the drone view and restored on disconnect. Frustum culling remains enabled. Existing native callbacks retain nearby content within 200m of the aircraft and 30m of the body, without whole-scene searches. This may increase draw calls. High-altitude and out-of-map viewpoints can still lack native content; the new behavior needs live verification.
 
 ## Settings and integration
+
+### Target tracking with MS Glasses
+
+Put the drone reticle over a tracked target and press **M** to mark it. Marking another target replaces the previous mark. Disconnect and keep the paired MS Glasses on to see the mark in your PMC view while the hovering drone can still see the target, even if a wall blocks your PMC's view.
+
+Enable **Auto target tracking** under **Tracking** in F1 to relay all targets the hovering drone can see. It defaults to off. The overlay requires an active drone within radio range. You can rebind **Mark drone target** under **Shortcuts**.
 
 Settings are in BepInEx/config/com.killdg.multipurposedrone.cfg. Optional Configuration Manager is not bundled. Defaults: enabled, MS Glasses viewing mode, 6 m/s, 450 m radio cutoff; the optional flight range limit is disabled by default, F9 test deployment, F10 disconnect.
 

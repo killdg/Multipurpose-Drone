@@ -4,7 +4,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AssemblyName>Killdg.MultipurposeDrone.Server</AssemblyName>
-        <Version>0.2.24</Version>
+        <Version>0.2.26</Version>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="SPTarkov.Common" HintPath="$(SPTBinaries)/SPTarkov.Common.dll" Private="false" />

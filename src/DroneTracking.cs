@@ -9,9 +9,28 @@ namespace Killdg.MultipurposeDrone
         private readonly List<Player> visibleActors = new();
         private readonly RaycastHit[] sightHits = new RaycastHit[32];
         private float nextSample;
+        private Player? markedActor;
+        private Vector2 viewSlope;
+        private bool samplingDroneView;
 
         internal void Sample(GameWorld world, Camera camera, Transform drone, int mask, bool refresh = false)
         {
+            float verticalSlope = Mathf.Tan(camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
+            viewSlope = new Vector2(verticalSlope * camera.aspect, verticalSlope);
+            Sample(world, camera.transform, drone, mask, camera, true, refresh);
+        }
+
+        internal void SampleRelay(GameWorld world, Transform view, Transform drone, int mask, bool autoTrack)
+        {
+            Sample(world, view, drone, mask, null, autoTrack, false);
+        }
+
+        private void Sample(GameWorld world, Transform view, Transform drone, int mask,
+            Camera? camera, bool allActors, bool refresh)
+        {
+            bool droneView = camera != null;
+            refresh |= droneView != samplingDroneView;
+            samplingDroneView = droneView;
             if (!refresh && Time.time < nextSample)
             {
                 return;
@@ -19,28 +38,79 @@ namespace Killdg.MultipurposeDrone
 
             nextSample = Time.time + 0.2f;
             visibleActors.Clear();
+            if (!allActors)
+            {
+                if (markedActor != null)
+                {
+                    AddVisibleActor(markedActor, view, drone, mask, camera);
+                }
+                return;
+            }
+
             foreach (var candidate in world.RegisteredPlayers)
             {
-                if (candidate is not Player actor || !actor.IsAI || actor.HealthController?.IsAlive != true)
+                if (candidate is Player actor && actor.IsAI)
                 {
-                    continue;
-                }
-
-                Vector3 chest = actor.Position + Vector3.up;
-                Vector3 origin = camera.transform.position;
-                if ((chest - origin).sqrMagnitude >= 40000 || !TryGetBox(camera, actor, out _))
-                {
-                    continue;
-                }
-
-                // Check the head as well so a rooftop ledge can hide the body
-                // without suppressing a box around an exposed sniper.
-                if (HasClearSight(origin, chest, actor, drone, mask)
-                    || HasClearSight(origin, actor.Position + Vector3.up * 1.65f, actor, drone, mask))
-                {
-                    visibleActors.Add(actor);
+                    AddVisibleActor(actor, view, drone, mask, camera);
                 }
             }
+        }
+
+        private void AddVisibleActor(Player actor, Transform view, Transform drone, int mask, Camera? camera)
+        {
+            if (actor.HealthController?.IsAlive != true)
+            {
+                return;
+            }
+
+            Vector3 origin = view.position;
+            Vector3 chest = actor.Position + Vector3.up;
+            Vector3 head = actor.Position + Vector3.up * 1.65f;
+            if ((chest - origin).sqrMagnitude >= 40000)
+            {
+                return;
+            }
+
+            // When the PMC has the camera back, project against the drone's last
+            // lens settings and its current hover pose without moving the camera.
+            bool visible = camera != null
+                ? TryGetBox(camera, actor, out _)
+                    && (HasClearSight(origin, chest, actor, drone, mask)
+                        || HasClearSight(origin, head, actor, drone, mask))
+                : (InsideDroneView(view, chest) && HasClearSight(origin, chest, actor, drone, mask))
+                    || (InsideDroneView(view, head) && HasClearSight(origin, head, actor, drone, mask));
+            if (visible)
+            {
+                visibleActors.Add(actor);
+            }
+        }
+
+        private bool InsideDroneView(Transform view, Vector3 point)
+        {
+            Vector3 local = Quaternion.Inverse(view.rotation) * (point - view.position);
+            return local.z > 0f
+                && Mathf.Abs(local.x) <= local.z * viewSlope.x
+                && Mathf.Abs(local.y) <= local.z * viewSlope.y;
+        }
+
+        internal bool MarkTarget(Camera camera)
+        {
+            Player? target = SelectTarget(camera, requireReticle: true);
+            if (target == null)
+            {
+                return false;
+            }
+
+            markedActor = target;
+            return true;
+        }
+
+        internal void Clear()
+        {
+            markedActor = null;
+            visibleActors.Clear();
+            nextSample = 0f;
+            viewSlope = Vector2.zero;
         }
 
         internal bool HasClearSight(Vector3 origin, Vector3 point, Player actor, Transform drone, int mask)
@@ -79,7 +149,7 @@ namespace Killdg.MultipurposeDrone
             return false;
         }
 
-        internal Player? SelectTarget(Camera camera)
+        internal Player? SelectTarget(Camera camera, bool requireReticle = false)
         {
             var reticle = new Vector2(Screen.width / 2f, Screen.height / 2f);
             Player? target = null;
@@ -95,6 +165,11 @@ namespace Killdg.MultipurposeDrone
                 float score = (box.center - reticle).sqrMagnitude;
                 if (!box.Contains(reticle))
                 {
+                    if (requireReticle)
+                    {
+                        continue;
+                    }
+
                     score += (float)Screen.width * Screen.width + (float)Screen.height * Screen.height;
                 }
 
@@ -128,15 +203,20 @@ namespace Killdg.MultipurposeDrone
             return box.Overlaps(new Rect(0, 0, Screen.width, Screen.height));
         }
 
-        internal void Draw(Camera camera)
+        internal void Draw(Camera camera, bool relay = false, bool autoTrack = false)
         {
-            if (Event.current.type != EventType.Repaint)
+            if (Event.current.type != EventType.Repaint || (relay && samplingDroneView))
             {
                 return;
             }
             Color previous = GUI.color;
             foreach (Player actor in visibleActors)
             {
+                if (relay && !autoTrack && actor != markedActor)
+                {
+                    continue;
+                }
+
                 if (!TryGetBox(camera, actor, out Rect box))
                 {
                     continue;
@@ -145,7 +225,9 @@ namespace Killdg.MultipurposeDrone
                 float thickness = Mathf.Max(2f, Screen.height / 540f);
                 GUI.color = new Color(0.02f, 0.07f, 0.03f, 0.22f);
                 DrawBorder(box, thickness + 2f);
-                GUI.color = new Color(0.32f, 1f, 0.28f, 0.45f);
+                GUI.color = actor == markedActor
+                    ? new Color(0.35f, 1f, 0.75f, 0.65f)
+                    : new Color(0.32f, 1f, 0.28f, 0.45f);
                 DrawBorder(box, thickness);
             }
             GUI.color = previous;

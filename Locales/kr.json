@@ -1,0 +1,18 @@
+{
+    "SPEED": "속도",
+    "HEIGHT AGL": "지면 기준 높이",
+    "NO GROUND": "지면 감지 안 됨",
+    "F10 DISCONNECT": "F10 연결 해제",
+    "DRONE  /  FAST": "드론 / 고속",
+    "DRONE  /  NORMAL": "드론 / 일반",
+    "DRONE  /  BODY VIEW": "드론 / 플레이어 시점",
+    "Connected": "연결됨",
+    "Disconnected": "연결 끊김",
+    "Standby": "대기 중",
+    "Target sighted": "표적 발견",
+    "No targets in sight": "보이는 표적 없음",
+    "672f41440000000000000001 Description": "키트를 개봉하세요. 일련번호가 같은 드론, MS Glasses, MS-Remote를 사용하세요. 드론을 바닥에 놓고 안경을 쓴 뒤 특수 슬롯에 넣은 조종기에 단축키를 지정하세요. 배터리는 10분 동안 지속되며 충돌 기폭 장치가 있습니다.",
+    "672f41440000000000000002 Description": "로터 보호대와 충돌 기폭 장치가 있는 소형 드론. 바닥에 놓고 MS-Remote를 사용하세요.",
+    "672f41440000000000000003 Description": "드론 카메라를 보여 주는 AR 안경. 벗으면 연결이 끊깁니다.",
+    "672f41440000000000000004 Description": "드론 조종기. 특수 슬롯에 넣고 단축키를 지정하세요."
+}

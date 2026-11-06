@@ -1,0 +1,18 @@
+{
+    "SPEED": "SEBESSÉG",
+    "HEIGHT AGL": "TALAJ FELETTI MAGASSÁG",
+    "NO GROUND": "NINCS TALAJJEL",
+    "F10 DISCONNECT": "F10 BONTÁS",
+    "DRONE  /  FAST": "DRÓN / GYORS",
+    "DRONE  /  NORMAL": "DRÓN / NORMÁL",
+    "DRONE  /  BODY VIEW": "DRÓN / JÁTÉKOSNÉZET",
+    "Connected": "Csatlakoztatva",
+    "Disconnected": "Leválasztva",
+    "Standby": "Készenlét",
+    "Target sighted": "Cél észlelve",
+    "No targets in sight": "Nincs látható cél",
+    "672f41440000000000000001 Description": "Bontsd ki a készletet. Azonos sorozatszámú drónt, MS Glasses szemüveget és MS-Remote távirányítót használj. Tedd le a drónt, vedd fel a szemüveget, és rendelj gyorsbillentyűt a speciális helyre tett távirányítóhoz. Az akkumulátor tíz percig bírja. A töltet ütközéskor robban.",
+    "672f41440000000000000002 Description": "Kompakt drón rotorvédőkkel és ütközésre robbanó töltettel. Tedd a földre és használd az MS-Remote távirányítót.",
+    "672f41440000000000000003 Description": "A drón kamerájának képét megjelenítő AR-szemüveg. Levételkor megszakad a kapcsolat.",
+    "672f41440000000000000004 Description": "A drón távirányítója. Tedd speciális helyre és rendelj hozzá gyorsbillentyűt."
+}

@@ -1,0 +1,18 @@
+{
+    "SPEED": "速度",
+    "HEIGHT AGL": "离地高度",
+    "NO GROUND": "未探测到地面",
+    "F10 DISCONNECT": "F10 断开连接",
+    "DRONE  /  FAST": "无人机 / 高速",
+    "DRONE  /  NORMAL": "无人机 / 正常",
+    "DRONE  /  BODY VIEW": "无人机 / 玩家视角",
+    "Connected": "已连接",
+    "Disconnected": "已断开",
+    "Standby": "待命",
+    "Target sighted": "发现目标",
+    "No targets in sight": "视野内无目标",
+    "672f41440000000000000001 Description": "拆开套件。使用序列号相同的无人机、MS Glasses 和 MS-Remote。将无人机放到地上，戴上眼镜，把遥控器放入特殊栏位并绑定快捷键。电池续航十分钟，配备碰撞起爆装置。",
+    "672f41440000000000000002 Description": "配备旋翼护罩和碰撞起爆装置的便携无人机。放到地上后使用 MS-Remote。",
+    "672f41440000000000000003 Description": "用于查看无人机画面的 AR 眼镜。摘下眼镜会断开连接。",
+    "672f41440000000000000004 Description": "无人机遥控器。放入特殊栏位并绑定快捷键。"
+}

@@ -1,0 +1,18 @@
+{
+    "SPEED": "HIZ",
+    "HEIGHT AGL": "YERDEN YÜKSEKLİK",
+    "NO GROUND": "ZEMİN ALGILANMADI",
+    "F10 DISCONNECT": "F10 BAĞLANTIYI KES",
+    "DRONE  /  FAST": "DRON / HIZLI",
+    "DRONE  /  NORMAL": "DRON / NORMAL",
+    "DRONE  /  BODY VIEW": "DRON / OYUNCU GÖRÜNÜMÜ",
+    "Connected": "Bağlı",
+    "Disconnected": "Bağlantı kesildi",
+    "Standby": "Beklemede",
+    "Target sighted": "Hedef görüldü",
+    "No targets in sight": "Görünürde hedef yok",
+    "672f41440000000000000001 Description": "Kiti aç. Seri numarası eşleşen dronu, MS Glasses gözlüğünü ve MS-Remote kumandasını kullan. Dronu yere bırak, gözlüğü tak ve özel yuvadaki kumandaya bir kısayol ata. Pil on dakika dayanır. Dronun çarpma anında patlayan yükü vardır.",
+    "672f41440000000000000002 Description": "Rotor korumalı, çarpma anında patlayan yük taşıyan kompakt dron. Yere bırak ve MS-Remote kumandasını kullan.",
+    "672f41440000000000000003 Description": "Dron kamerasını gösteren AR gözlüğü. Çıkardığında bağlantı kesilir.",
+    "672f41440000000000000004 Description": "Dron kumandası. Özel yuvaya tak ve bir kısayol ata."
+}

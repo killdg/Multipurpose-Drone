@@ -1,0 +1,18 @@
+{
+    "SPEED": "VELOCITÀ",
+    "HEIGHT AGL": "ALTEZZA DAL SUOLO",
+    "NO GROUND": "SUOLO NON RILEVATO",
+    "F10 DISCONNECT": "F10 DISCONNETTI",
+    "DRONE  /  FAST": "DRONE / VELOCE",
+    "DRONE  /  NORMAL": "DRONE / NORMALE",
+    "DRONE  /  BODY VIEW": "DRONE / VISTA GIOCATORE",
+    "Connected": "Connesso",
+    "Disconnected": "Disconnesso",
+    "Standby": "In attesa",
+    "Target sighted": "Bersaglio avvistato",
+    "No targets in sight": "Nessun bersaglio visibile",
+    "672f41440000000000000001 Description": "Apri il kit. Usa drone, MS Glasses e MS-Remote con lo stesso numero di serie. Posa il drone, indossa gli occhiali e assegna il telecomando a un tasto rapido da uno slot speciale. Dieci minuti di batteria e carica a impatto.",
+    "672f41440000000000000002 Description": "Drone compatto con rotori protetti e carica a impatto. Posalo a terra e usa MS-Remote.",
+    "672f41440000000000000003 Description": "Occhiali AR per vedere la telecamera del drone. Toglili per disconnetterti.",
+    "672f41440000000000000004 Description": "Telecomando del drone. Mettilo in uno slot speciale e assegnagli un tasto rapido."
+}

@@ -1,0 +1,18 @@
+{
+    "SPEED": "VITEZĂ",
+    "HEIGHT AGL": "ÎNĂLȚIME FAȚĂ DE SOL",
+    "NO GROUND": "SOL NEDETECTAT",
+    "F10 DISCONNECT": "F10 DECONECTARE",
+    "DRONE  /  FAST": "DRONĂ / RAPID",
+    "DRONE  /  NORMAL": "DRONĂ / NORMAL",
+    "DRONE  /  BODY VIEW": "DRONĂ / VEDERE JUCĂTOR",
+    "Connected": "Conectat",
+    "Disconnected": "Deconectat",
+    "Standby": "În așteptare",
+    "Target sighted": "Țintă observată",
+    "No targets in sight": "Nicio țintă vizibilă",
+    "672f41440000000000000001 Description": "Desfă kitul. Folosește drona, MS Glasses și MS-Remote cu același număr de serie. Pune drona pe sol, poartă ochelarii și atribuie o tastă rapidă telecomenzii din slotul special. Bateria ține zece minute. Drona are o încărcătură de impact.",
+    "672f41440000000000000002 Description": "Dronă compactă cu protecție pentru rotoare și încărcătură de impact. Pune-o pe sol și folosește MS-Remote.",
+    "672f41440000000000000003 Description": "Ochelari AR care afișează imaginea camerei dronei. Scoaterea lor întrerupe conexiunea.",
+    "672f41440000000000000004 Description": "Telecomanda dronei. Echipeaz-o într-un slot special și atribuie-i o tastă rapidă."
+}

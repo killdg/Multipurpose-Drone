@@ -1,0 +1,18 @@
+{
+    "SPEED": "VELOCIDAD",
+    "HEIGHT AGL": "ALTURA SOBRE SUELO",
+    "NO GROUND": "SIN SUELO",
+    "F10 DISCONNECT": "F10 DESCONECTAR",
+    "DRONE  /  FAST": "DRON / RÁPIDO",
+    "DRONE  /  NORMAL": "DRON / NORMAL",
+    "DRONE  /  BODY VIEW": "DRON / VISTA DEL JUGADOR",
+    "Connected": "Conectado",
+    "Disconnected": "Desconectado",
+    "Standby": "En espera",
+    "Target sighted": "Objetivo avistado",
+    "No targets in sight": "Sin objetivos a la vista",
+    "672f41440000000000000001 Description": "Desembala el kit. Usa el dron, las MS Glasses y el MS-Remote con el mismo número de serie. Deja el dron en el suelo, ponte las gafas y asigna el mando a un acceso rápido desde una ranura especial. Batería de diez minutos y carga de impacto.",
+    "672f41440000000000000002 Description": "Dron compacto con rotores protegidos y carga de impacto. Déjalo en el suelo y usa el MS-Remote.",
+    "672f41440000000000000003 Description": "Gafas AR para ver la cámara del dron. Al quitártelas se desconecta.",
+    "672f41440000000000000004 Description": "Mando del dron. Equípalo en una ranura especial y asígnalo a un acceso rápido."
+}

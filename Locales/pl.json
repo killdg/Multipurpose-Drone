@@ -1,0 +1,18 @@
+{
+    "SPEED": "PRĘDKOŚĆ",
+    "HEIGHT AGL": "WYSOKOŚĆ NAD GRUNTEM",
+    "NO GROUND": "BRAK GRUNTU",
+    "F10 DISCONNECT": "F10 ROZŁĄCZ",
+    "DRONE  /  FAST": "DRON / SZYBKO",
+    "DRONE  /  NORMAL": "DRON / NORMALNIE",
+    "DRONE  /  BODY VIEW": "DRON / WIDOK GRACZA",
+    "Connected": "Połączono",
+    "Disconnected": "Rozłączono",
+    "Standby": "Oczekiwanie",
+    "Target sighted": "Cel zauważony",
+    "No targets in sight": "Brak widocznych celów",
+    "672f41440000000000000001 Description": "Rozpakuj zestaw. Użyj drona, MS Glasses i MS-Remote o tym samym numerze seryjnym. Połóż drona na ziemi, załóż okulary i przypisz skrót do pilota w slocie specjalnym. Akumulator działa dziesięć minut. Dron ma ładunek uderzeniowy.",
+    "672f41440000000000000002 Description": "Kompaktowy dron z osłonami wirników i ładunkiem uderzeniowym. Połóż go na ziemi i użyj MS-Remote.",
+    "672f41440000000000000003 Description": "Okulary AR pokazujące obraz z kamery drona. Zdjęcie okularów rozłącza transmisję.",
+    "672f41440000000000000004 Description": "Pilot drona. Umieść go w slocie specjalnym i przypisz skrót."
+}

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <AssemblyName>MultipurposeDrone.LanguagePack.Client</AssemblyName>
+    <Version>1.0.0</Version>
+    <Authors>killdg</Authors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../Shared/CatalogStore.cs" Link="Shared/CatalogStore.cs" />
+    <Reference Include="BepInEx" HintPath="$(SPTPath)/BepInEx/core/BepInEx.dll" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(SPTPath)/BepInEx/core/0Harmony.dll" Private="false" />
+    <Reference Include="Assembly-CSharp" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/Assembly-CSharp.dll" Private="false" />
+    <Reference Include="UnityEngine" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/UnityEngine.dll" Private="false" />
+    <Reference Include="UnityEngine.CoreModule" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="UnityEngine.IMGUIModule" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/UnityEngine.IMGUIModule.dll" Private="false" />
+    <Reference Include="Newtonsoft.Json" HintPath="$(SPTPath)/EscapeFromTarkov_Data/Managed/Newtonsoft.Json.dll" Private="false" />
+  </ItemGroup>
+</Project>

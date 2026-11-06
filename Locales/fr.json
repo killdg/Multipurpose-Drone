@@ -1,0 +1,18 @@
+{
+    "SPEED": "VITESSE",
+    "HEIGHT AGL": "HAUTEUR SOL",
+    "NO GROUND": "SOL NON DÉTECTÉ",
+    "F10 DISCONNECT": "F10 DÉCONNECTER",
+    "DRONE  /  FAST": "DRONE / RAPIDE",
+    "DRONE  /  NORMAL": "DRONE / NORMAL",
+    "DRONE  /  BODY VIEW": "DRONE / VUE JOUEUR",
+    "Connected": "Connecté",
+    "Disconnected": "Déconnecté",
+    "Standby": "En attente",
+    "Target sighted": "Cible repérée",
+    "No targets in sight": "Aucune cible visible",
+    "672f41440000000000000001 Description": "Déballez le kit. Gardez le drone, les MS Glasses et la MS-Remote du même numéro de série. Déposez le drone, portez les lunettes et assignez la télécommande à un raccourci depuis un emplacement spécial. Batterie de dix minutes et charge à impact.",
+    "672f41440000000000000002 Description": "Drone compact à rotors protégés et charge à impact. Déposez-le au sol et utilisez la MS-Remote.",
+    "672f41440000000000000003 Description": "Lunettes AR pour voir la caméra du drone. Retirez-les pour vous déconnecter.",
+    "672f41440000000000000004 Description": "Télécommande du drone. Placez-la dans un emplacement spécial et assignez-la à un raccourci."
+}

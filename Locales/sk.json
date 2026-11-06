@@ -1,0 +1,18 @@
+{
+    "SPEED": "RÝCHLOSŤ",
+    "HEIGHT AGL": "VÝŠKA NAD ZEMOU",
+    "NO GROUND": "ZEM NEZISTENÁ",
+    "F10 DISCONNECT": "F10 ODPOJIŤ",
+    "DRONE  /  FAST": "DRON / RÝCHLO",
+    "DRONE  /  NORMAL": "DRON / NORMÁLNE",
+    "DRONE  /  BODY VIEW": "DRON / POHĽAD HRÁČA",
+    "Connected": "Pripojené",
+    "Disconnected": "Odpojené",
+    "Standby": "Pohotovosť",
+    "Target sighted": "Cieľ spozorovaný",
+    "No targets in sight": "Žiadny cieľ na dohľad",
+    "672f41440000000000000001 Description": "Rozbaľ súpravu. Použi dron, MS Glasses a MS-Remote s rovnakým sériovým číslom. Polož dron na zem, nasaď si okuliare a ovládaču v špeciálnom slote priraď klávesovú skratku. Batéria vydrží desať minút. Dron má nárazovú nálož.",
+    "672f41440000000000000002 Description": "Kompaktný dron s krytmi rotorov a nárazovou náložou. Polož ho na zem a použi MS-Remote.",
+    "672f41440000000000000003 Description": "Okuliare AR zobrazujú obraz z kamery dronu. Zložením okuliarov sa odpojíš.",
+    "672f41440000000000000004 Description": "Ovládač dronu. Vlož ho do špeciálneho slotu a priraď skratku."
+}

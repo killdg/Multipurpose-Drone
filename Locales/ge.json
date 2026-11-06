@@ -1,0 +1,18 @@
+{
+    "SPEED": "TEMPO",
+    "HEIGHT AGL": "HÖHE ÜBER BODEN",
+    "NO GROUND": "KEIN BODEN",
+    "F10 DISCONNECT": "F10 TRENNEN",
+    "DRONE  /  FAST": "DROHNE / SCHNELL",
+    "DRONE  /  NORMAL": "DROHNE / NORMAL",
+    "DRONE  /  BODY VIEW": "DROHNE / SPIELERSICHT",
+    "Connected": "Verbunden",
+    "Disconnected": "Getrennt",
+    "Standby": "Bereit",
+    "Target sighted": "Ziel gesichtet",
+    "No targets in sight": "Kein Ziel sichtbar",
+    "672f41440000000000000001 Description": "Packe das Set aus. Drohne, MS Glasses und MS-Remote müssen dieselbe Seriennummer haben. Lege die Drohne ab, setze die Brille auf und weise der Fernsteuerung im Spezialslot eine Schnelltaste zu. Zehn Minuten Akkulaufzeit und Aufprallladung.",
+    "672f41440000000000000002 Description": "Kompakte Drohne mit geschützten Rotoren und Aufprallladung. Lege sie ab und benutze die MS-Remote.",
+    "672f41440000000000000003 Description": "AR-Brille für das Kamerabild. Absetzen trennt die Verbindung.",
+    "672f41440000000000000004 Description": "Fernsteuerung der Drohne. Im Spezialslot ausrüsten und einer Schnelltaste zuweisen."
+}
